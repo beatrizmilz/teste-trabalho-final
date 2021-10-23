@@ -1,0 +1,34 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  pull_request:
+    branches: [main, master]
+
+name: render-rmarkdown
+
+jobs:
+  render-rmarkdown:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-renv@v1
+
+      - name: Render Rmarkdown files
+        run: |
+          Rscript -e 'arquivos <- list.files(pattern = ".Rmd", full.names = TRUE, recursive = TRUE, path = "trabalhos"); nome_arquivo_gerado <- glue::glue("{basename(tools::file_path_sans_ext(arquivos))}_actions.Rmd" ); rmarkdown::render(input = arquivos, output_file = nome_arquivo_gerado)
+      - name: Commit results
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build Rmarkdown files' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
