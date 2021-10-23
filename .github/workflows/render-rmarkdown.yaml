@@ -25,7 +25,9 @@ jobs:
 
       - name: Render Rmarkdown files
         run: |
-          Rscript -e 'arquivos <- list.files(pattern = ".Rmd", full.names = TRUE, recursive = TRUE, path = "trabalhos"); nome_arquivo_gerado <- glue::glue("{basename(tools::file_path_sans_ext(arquivos))}_actions.Rmd" ); rmarkdown::render(input = arquivos, output_file = nome_arquivo_gerado)
+          RMD_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]Rmd$'))
+          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render(f)' ${RMD_PATH[*]}
+
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
