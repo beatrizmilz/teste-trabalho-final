@@ -29,7 +29,7 @@ jobs:
           remotes::install_local(dependencies = TRUE)
       - name: Render Rmarkdown files
         run: |
-          Rscript -e 'arquivos <- base::list.files(pattern = ".Rmd", full.names = TRUE, recursive = TRUE, path = "trabalhos"); nome_arquivo_gerado <- glue::glue("{base::basename(tools::file_path_sans_ext(arquivos))}_actions.Rmd" ); rmarkdown::render(input = arquivos, output_file = nome_arquivo_gerado)
+          Rscript -e 'arquivos <- base::list.files(pattern = ".Rmd", full.names = TRUE, recursive = TRUE, path = "trabalhos"); nome_arquivo_gerado <- glue::glue("{base::basename(tools::file_path_sans_ext(arquivos))}_actions.Rmd" ); rmarkdown::render(input = arquivos, output_file = nome_arquivo_gerado)'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
