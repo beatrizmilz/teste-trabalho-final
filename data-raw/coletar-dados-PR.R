@@ -78,3 +78,5 @@ actions_de_prs
 # postar a avaliação aqui!
 
 # comentar_pr(1)
+
+# ideia ao final: postar a nota em uma planilha?
