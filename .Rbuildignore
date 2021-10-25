@@ -3,3 +3,5 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^trabalhos$
+^data-raw$
+^trabalhos_html$
