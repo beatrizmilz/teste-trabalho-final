@@ -35,6 +35,7 @@ jobs:
             renv.config.repos.override = c("https://packagemanager.rstudio.com/all/__linux__/bionic/1750752", "https://cloud.r-project.org")
           )
           renv::restore()
+          install.packages("remotes")
           remotes::install_local(dependencies = TRUE)
       - name: Render Rmarkdown files
         run: |
