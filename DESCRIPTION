@@ -23,4 +23,5 @@ Imports:
     rmarkdown,
     tibble,
     tidyr,
-    tools
+    tools,
+    usethis
