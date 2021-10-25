@@ -1,73 +1,41 @@
 library(magrittr)
 #?gh::gh()
 
-# buscando os PRs abertos
+# Buscas gerais! -----------------------------------------
+## buscar actions runs ---------
 
-buscar_prs <- function(owner = "beatrizmilz",
-                         repo = "teste-trabalho-final") {
-  list_prs <- gh::gh("/repos/{owner}/{repo}/pulls",
-                     owner = owner,
-                     repo = repo)
+### quais foram os actions_runs que são de PRs ----
+buscar_actions_runs()
 
-  df_prs <- list_prs %>%
-    purrr::map(unlist, recursive = TRUE) %>%
-    purrr::map(tibble::enframe) %>%
-    purrr::map(tidyr::pivot_wider,
-                names_from = name,
-                values_from = value) %>%
-    purrr::reduce(dplyr::bind_rows)
+### actions para aprovar ----
+actions_para_aprovar <- buscar_actions_runs() %>%
+  dplyr::filter(conclusion == "action_required")
+
+### aprovar actions -----
+
+# FAZER
 
 
-  df_prs
-}
+## buscando os PRs abertos / para avaliar  ---------
+
+prs_para_avaliar <- buscar_prs() %>%
+  dplyr::filter(state == "open")
 
 
+# Buscas e tarefas para iterar por PR ------------
+##  buscar arquivos em um PR -------
 
-filtrar_prs_para_avaliar <- function(df){
-  df %>%
-    dplyr::filter(state == "open")
-
-}
-
-
-
-
-prs_para_avaliar <- buscar_prs() %>% filtrar_prs_para_avaliar()
-
-# -------
-
-buscar_arquivos_pr <- function(pr_n, owner = "beatrizmilz",
-         repo = "teste-trabalho-final"){
-  gh::gh("/repos/{owner}/{repo}/pulls/{pull_number}/files",
-         owner = owner,
-         repo = repo,
-         pull_number = pr_n) %>%
-    purrr::map(unlist, recursive = TRUE) %>%
-    purrr::map(tibble::enframe) %>%
-    purrr::map(tidyr::pivot_wider, names_from = name, values_from = value) %>%
-    purrr::reduce(dplyr::bind_rows)
-}
 
 buscar_arquivos_pr(1)
 
-
-
-
-# checklist - o que avaliar?
+## checklist - o que avaliar? -----
 
 # existe um arquivo .Rmd?
 # colocou na pasta certa?
-# .Rmd compilou
+# .Rmd compilou? / actions passou?
+# nomeou corretamente?
 
-# postar um comentário no PR:
+## postar um comentário no PR ----------
+# postar a avaliação aqui!
 
-comentar_pr <- function(pr_n, owner = "beatrizmilz",
-                               repo = "teste-trabalho-final"){
-gh::gh("POST /repos/{owner}/{repo}/issues/{number}/comments",
-       owner = owner,
-       repo = repo,
-       number = pr_n,
-       body = "Your Message to Comment")
-}
-
-comentar_pr(1)
+# comentar_pr(1)

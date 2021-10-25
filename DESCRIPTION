@@ -17,6 +17,7 @@ Imports:
     dplyr,
     gh,
     glue,
+    janitor,
     knitr,
     magrittr,
     purrr,
