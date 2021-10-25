@@ -10,9 +10,9 @@ buscar_prs <- function(owner = "beatrizmilz",
                      repo = repo)
 
   df_prs <- list_prs %>%
-    purrr:::map(unlist, recursive = TRUE) %>%
-    purrr:::map(tibble::enframe) %>%
-    purrr:::map(tidyr::pivot_wider,
+    purrr::map(unlist, recursive = TRUE) %>%
+    purrr::map(tibble::enframe) %>%
+    purrr::map(tidyr::pivot_wider,
                 names_from = name,
                 values_from = value) %>%
     purrr::reduce(dplyr::bind_rows)
@@ -42,9 +42,9 @@ buscar_arquivos_pr <- function(pr_n, owner = "beatrizmilz",
          owner = owner,
          repo = repo,
          pull_number = pr_n) %>%
-    purrr:::map(unlist, recursive = TRUE) %>%
-    purrr:::map(tibble::enframe) %>%
-    purrr:::map(tidyr::pivot_wider, names_from = name, values_from = value) %>%
+    purrr::map(unlist, recursive = TRUE) %>%
+    purrr::map(tibble::enframe) %>%
+    purrr::map(tidyr::pivot_wider, names_from = name, values_from = value) %>%
     purrr::reduce(dplyr::bind_rows)
 }
 
