@@ -13,13 +13,14 @@ buscar_actions_runs <- function(owner = "beatrizmilz",
                values_from = value) %>%
     purrr::reduce(dplyr::bind_rows) %>%
     janitor::clean_names() %>%
-    dplyr::select(
-      id,
-      run_number,
-      event,
-      conclusion,
-      head_repository_full_name,
-      head_repository_owner_login
-    ) %>%
+    # dplyr::select(
+    #   id,
+    #   run_number,
+    #   event,
+    #   conclusion,
+    #   head_repository_full_name,
+    #   head_repository_owner_login,
+    #   html_url
+    # ) %>%
     dplyr::filter(event == "pull_request")
 }

@@ -5,7 +5,7 @@ library(magrittr)
 ## buscar actions runs ---------
 
 ### quais foram os actions_runs que são de PRs ----
-buscar_actions_runs()
+actions_de_prs <- buscar_actions_runs()
 
 ### actions para aprovar ----
 actions_para_aprovar <- buscar_actions_runs() %>%
@@ -13,13 +13,20 @@ actions_para_aprovar <- buscar_actions_runs() %>%
 
 ### aprovar actions -----
 
-# FAZER
+aprovar_actions_runs_pendentes()
+
+### checar se tudo foi aprovado ----
+
+buscar_actions_runs() %>%
+  dplyr::filter(conclusion == "action_required")
 
 
 ## buscando os PRs abertos / para avaliar  ---------
 
 prs_para_avaliar <- buscar_prs() %>%
   dplyr::filter(state == "open")
+
+
 
 
 # Buscas e tarefas para iterar por PR ------------

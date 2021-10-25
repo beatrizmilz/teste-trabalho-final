@@ -42,8 +42,8 @@ jobs:
           Rscript data-raw/actions-render-rmd.R
       - name: Commit results
         run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add trabalhos_html/*
-          git commit -m 'Compila arquivos .Rmd' || echo "No changes to commit"
+          git commit -m 'Compila arquivos .Rmd [GitHub Actions Bot]' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
