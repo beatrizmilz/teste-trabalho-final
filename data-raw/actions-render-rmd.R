@@ -18,4 +18,4 @@ arquivos_gerados <-
   )
 
 
-usethis::ui_done("Confira os arquivos gerados em:  {nome_arquivo_compilar}")
+usethis::ui_done("Confira os arquivos gerados em:  {arquivos_gerados}")
