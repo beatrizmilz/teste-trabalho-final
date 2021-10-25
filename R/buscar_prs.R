@@ -10,7 +10,8 @@ buscar_prs <- function(owner = "beatrizmilz",
     purrr::map(tidyr::pivot_wider,
                names_from = name,
                values_from = value) %>%
-    purrr::reduce(dplyr::bind_rows)
+    purrr::reduce(dplyr::bind_rows) %>%
+    janitor::clean_names()
 
 
   df_prs

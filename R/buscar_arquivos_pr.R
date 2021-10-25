@@ -11,5 +11,6 @@ buscar_arquivos_pr <- function(pr_n, owner = "beatrizmilz",
     purrr::map(tidyr::pivot_wider,
                names_from = name,
                values_from = value) %>%
-    purrr::reduce(dplyr::bind_rows)
+    purrr::reduce(dplyr::bind_rows) %>%
+    janitor::clean_names()
 }
